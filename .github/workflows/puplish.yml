@@ -25,8 +25,7 @@ jobs:
         with:
           modrinth-id: JPHxoady
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
-          
-          # Use the exact filename created above
+
           files: "§6Translucent Lanterns.zip"
 
           version: "${{ github.ref_name }}"
@@ -40,3 +39,5 @@ jobs:
             26.1-snapshot-8
             26.1-snapshot-9
             26.1-snapshot-10
+
+          game-version-filter: any
