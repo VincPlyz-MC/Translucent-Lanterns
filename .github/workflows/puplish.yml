@@ -1,0 +1,41 @@
+name: Publish Resource Pack
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Create Resource Pack Zip
+        run: |
+          zip -r "§6Translucent Lanterns.zip" . -x "*.git*" ".github/*"
+
+      - name: Publish to Modrinth
+        uses: Kir-Antipov/mc-publish@v3.3
+        with:
+          modrinth-id: JPHxoady
+          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+
+          files: "§6Translucent Lanterns.zip"
+
+          version: "${{ github.ref_name }}"
+          
+          # Metadata
+          name: "Translucent Lanterns ${{ github.ref_name }}"
+          version-type: release
+          loaders: minecraft
+          game-versions: |
+            26.1-snapshot-7
+            26.1-snapshot-8
+            26.1-snapshot-9
+            26.1-snapshot-10
+
+          game-version-filter: any
